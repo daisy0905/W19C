@@ -20,10 +20,10 @@ print("-----------------------------")
 
 board = gameboard.GameBoard()
 player = player.Player(9, 1)
-enemy = enemies.Enemy(5, 2)
+enemy = enemies.Enemy(5, 5)
 # enemy_two = enemies.Enemy(9, 9)
 player.rowPosition = 9
-player.columnPosition = 1
+player.columnPosition =  1
 enemyLastRow = 0
 enemyLastCol = 0
 
@@ -58,30 +58,31 @@ while True:
         print("Congratulations, you win!")
         break
 
-while True:
-    enemyMove = random.randint(1, 4)
-    enemy.enemyRow = enemyLastRow
-    enemy.enemyColumn = enemyLastCol
+    while True:
+        enemyMove = random.randint(1, 4)
+        print(enemyMove)
+        enemyLastCol = enemy.enemyColumn
+        enemyLastRow = enemy.enemyRow
 
-    if enemyMove == 1:
-        enemy_check_move = board.checkMove(enemy.enemyRow - 1, enemy.enemyColumn)
-        if enemy_check_move == True:
-            enemy.moveUp()
-            break
-    elif enemyMove == 2:
-        enemy_check_move = board.checkMove(enemy.enemyRow + 1, enemy.enemyColumn)
-        if enemy_check_move == True:
-            enemy.moveDown()
-            break
-    elif enemyMove == 3:
-        enemy_check_move = board.checkMove(enemy.enemyRow, enemy.enemyColumn - 1)
-        if enemy_check_move == True:
-            enemy.moveLeft()
-            break
-    elif enemyMove == 4:
-        enemy_check_move = board.checkMove(enemy.enemyRow, enemy.enemyColumn + 1)
-        if enemy_check_move == True:
-            enemy.moveRight()
-            break
+        if enemyMove == 1:
+            enemy_check_move = board.checkMove(enemy.enemyRow - 1, enemy.enemyColumn)
+            if enemy_check_move == True:
+                enemy.moveUp()
+                break
+        elif enemyMove == 2:
+            enemy_check_move = board.checkMove(enemy.enemyRow + 1, enemy.enemyColumn)
+            if enemy_check_move == True:
+                enemy.moveDown()
+                break
+        elif enemyMove == 3:
+            enemy_check_move = board.checkMove(enemy.enemyRow, enemy.enemyColumn - 1)
+            if enemy_check_move == True:
+                enemy.moveLeft()
+                break
+        elif enemyMove == 4:
+            enemy_check_move = board.checkMove(enemy.enemyRow, enemy.enemyColumn + 1)
+            if enemy_check_move == True:
+                enemy.moveRight()
+                break
             
 

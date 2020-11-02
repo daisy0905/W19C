@@ -26,3 +26,6 @@ class Enemy:
             return True
         else:
             return False
+
+import random
+print(random.randint(1, 4))

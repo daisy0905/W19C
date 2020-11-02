@@ -22,7 +22,7 @@ class GameBoard:
         #     ["*  ", " ", " ", " ", " ", "*",],
         #     ["* ", "* ", "* ", "* ", "*"],
         # ]
-
+    
     def printBoard(self, playerRow, playerColumn, enemyRow, enemyColumn):
         score = 0
         for i in range(len(self.board)):
@@ -48,5 +48,6 @@ class GameBoard:
     def checkWin(self, playerRow, playerColumn):
         if playerRow == self.winningRow and playerColumn == self.winningColumn:
             return True
+            print(score)
         return False
     
