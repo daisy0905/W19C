@@ -1,41 +1,37 @@
 class GameBoard:
     def __init__(self):
         self.winningRow = 0
-        self.winningColumn = 2
+        self.winningColumn = 9
         self.board = [
-            ["* ", "* ", "  ", "* ", "*"],
-            [
-                "*  ",
-                " ",
-                " ",
-                " ",
-                "*",
-                " *",
-            ],
-            [
-                "*  ",
-                " ",
-                "* ",
-                "*",
-                " ",
-                "*",
-            ],
-            [
-                "*  ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " *",
-            ],
-            ["* ", "* ", "* ", "* ", "*"],
+            ["* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "  ", "* "],
+            ["* ", "o ", "o ", "o ", "o ", "* ", "o ", "o ", "o ", "o ", "* "],
+            ["* ", "o ", "* ", "* ", "o ", "* ", "o ", "* ", "* ", "o ", "* "],
+            ["* ", "o ", "* ", "o ", "o ", "o ", "o ", "o ", "* ", "* ", "* "],
+            ["* ", "o ", "* ", "* ", "* ", "* ", "o ", "o ", "o ", "o ", "* "],
+            ["* ", "o ", "o ", "o ", "o ", "* ", "o ", "* ", "* ", "o ", "* "],
+            ["* ", "* ", "o ", "* ", "o ", "* ", "o ", "* ", "* ", "o ", "* "],
+            ["* ", "o ", "o ", "* ", "o ", "o ", "o ", "* ", "o ", "o ", "* "],
+            ["* ", "o ", "* ", "* ", "o ", "* ", "o ", "* ", "* ", "o ", "* "],
+            ["* ", "o ", "o ", "o ", "o ", "* ", "o ", "o ", "o ", "o ", "* "],
+            ["* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* "]
         ]
+        # self.board = [
+        #     ["* ", "* ", "  ", "* ", "*"],
+        #     ["*  ", " ", " ", " ", "*", " *",],
+        #     ["*  ", " ", "* ", "*", " ", "*",],
+        #     ["*  ", " ", " ", " ", " ", "*",],
+        #     ["* ", "* ", "* ", "* ", "*"],
+        # ]
 
-    def printBoard(self, playerRow, playerColumn):
+    def printBoard(self, playerRow, playerColumn, enemyRow, enemyColumn):
+        score = 0
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
-                if i == playerRow and j == playerColumn:
-                    print("P", end="")
+                if i == enemyRow and j == enemyColumn:
+                    print("E ", end="")
+                elif i == playerRow and j == playerColumn:
+                    print("P ", end="")
+                    score += 1
                 else:
                     print(self.board[i][j], end="")
             print("")
