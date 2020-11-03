@@ -1,8 +1,8 @@
 import gameboard
 import player
 import enemies
-# import coinboard
 import random
+import coin
 
 print("Welcome to the game!")
 print("Instructions: ")
@@ -26,11 +26,17 @@ player.rowPosition = 9
 player.columnPosition =  1
 enemyLastRow = 0
 enemyLastCol = 0
+score = 0
+coins = [coin.Coin(1, 3), coin.Coin(1,4), coin.Coin(3, 3), coin.Coin(3, 4), coin.Coin(5, 6), coin.Coin(5, 7), coin.Coin(5, 8), coin.Coin(1, 7), coin.Coin(1, 8), coin.Coin(5, 2)]
+
 
 while True:
     if enemy.enemyCheck(player.rowPosition, player.columnPosition, enemyLastRow, enemyLastCol):
         break
-    board.printBoard(player.rowPosition, player.columnPosition, enemy.enemyRow, enemy.enemyColumn)
+    for coin in coins:
+        if coin.coinCollect(player.rowPosition, player.columnPosition):
+            score += 1
+    board.printBoard(player.rowPosition, player.columnPosition, enemy.enemyRow, enemy.enemyColumn, coin.coinRow, coin.coinColumn)
     selection = input("Make a move: ")
     # TODO
     # Move the player through the board
@@ -56,11 +62,11 @@ while True:
     check_win = board.checkWin(player.rowPosition, player.columnPosition)
     if check_win == True:
         print("Congratulations, you win!")
+        print("Your score is: " + str(score))
         break
 
     while True:
         enemyMove = random.randint(1, 4)
-        print(enemyMove)
         enemyLastCol = enemy.enemyColumn
         enemyLastRow = enemy.enemyRow
 
