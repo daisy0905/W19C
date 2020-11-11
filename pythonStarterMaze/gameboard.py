@@ -1,9 +1,11 @@
 import random
 
 class GameBoard:
-    def __init__(self):
+    def __init__(self, coinsAmount):
         self.winningRow = 0
         self.winningColumn = 9
+        self.coinsAmount = coinsAmount
+        self.coins = []
         self.board = [
             ["* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "  ", "* "],
             ["* ", "  ", "  ", "  ", "  ", "* ", "  ", "  ", "  ", "  ", "* "],
@@ -31,24 +33,24 @@ class GameBoard:
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
                 for k in range(len(self.coins)):
-                    if i == self.coins[z].get('row') and j == self.coins[z].get('column'):
-                        self.board[i][j] = "O"
+                    if i == self.coins[k].get('row') and j == self.coins[k].get('column'):
+                        self.board[i][j] = "O "
                 for e in range(len(enemyPosition)):
                     if i == enemyPosition[e].get('row') and j == enemyPosition[e].get('column'):
-                        self.board[i][j] = "E"
+                        self.board[i][j] = "E "
                     elif i == enemyPosition[e].get('lastRow') and j == enemyPosition[e].get('lastColumn'):
                         self.board[i][j] = " "
                 if i == playerRow and j == playerColumn:
-                    print("P", end=" ")
+                    print("P ", end="")
                 else:
-                    print(self.board[i][j], end=" ")
-            print("")
-    
+                    print(self.board[i][j], end="")
+            print(" ")
+
     def coinsPosition(self):
         for i in range(self.coinsAmount):
             while True:
-                row = random.randint(1, 8)
-                column = random.randint(1, 8)
+                row = random.randint(1, 9)
+                column = random.randint(1, 9)
                 if self.board[row][column].find("*") == -1:
                     if len(self.coins) == 0:
                         coinLocation = {'row': row, 'column': column}
@@ -65,7 +67,7 @@ class GameBoard:
 
     def coinScore(self, coinRow, coinColumn):
         for r in range(len(self.coins)):
-            if coinRow == self.coins[r].get('row') and coinColumn == self.coins[r].get('column')
+            if coinRow == self.coins[r].get('row') and coinColumn == self.coins[r].get('column'):
                 print("Score + 1")
                 self.coins.remove({'row': coinRow, 'column': coinColumn})
                 self.board[coinRow][coinColumn] = " "
@@ -83,6 +85,5 @@ class GameBoard:
     def checkWin(self, playerRow, playerColumn):
         if playerRow == self.winningRow and playerColumn == self.winningColumn:
             return True
-            print(score)
         return False
     

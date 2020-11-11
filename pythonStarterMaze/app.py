@@ -2,9 +2,12 @@ import gameboard
 import player
 import enemies
 import random
-import coin
 
 print("Welcome to the game!")
+print("Please enter coins number: ")
+coinsAmount = int(input())
+print("Please enter enemy number: ")
+enemiesAmount = int(input())
 print("Instructions: ")
 print("To move up: w")
 print("To move down: s")
@@ -18,77 +21,68 @@ print("-----------------------------")
 # Create a new GameBoard called board
 # Create a new Player called player starting at position 9,1
 
-board = gameboard.GameBoard()
+board = gameboard.GameBoard(coinsAmount)
+board.coinsPosition()
 player = player.Player(9, 1)
-enemy = enemies.Enemy(5, 5)
-# enemy_two = enemies.Enemy(9, 9)
+enemy = []
+enemyPosition = []
 player.rowPosition = 9
 player.columnPosition =  1
-enemyLastRow = 0
-enemyLastCol = 0
-score = 0
-coins = [coin.Coin(1, 3), coin.Coin(1,4), coin.Coin(3, 3), coin.Coin(3, 4), coin.Coin(5, 6), coin.Coin(5, 7), coin.Coin(5, 8), coin.Coin(1, 7), coin.Coin(1, 8), coin.Coin(5, 2)]
+enemyLastRow = 8
+enemyLastCol = 8
 
+for i in range(enemiesAmount):
+    while True:
+        row = random.randint(1, 9)
+        column = random.randint(1, 9)
+        if board.board[row][column].find("*") == -1:
+            enemy.append(enemies.Enemy(row, column))
+            enemyPosition.append({'row': row, 'column': column, 'lastRow': 8, 'lastColumn': 8})
+            break
+
+coinScore = 0
 
 while True:
-    if enemy.enemyCheck(player.rowPosition, player.columnPosition, enemyLastRow, enemyLastCol):
-        break
-    for coin in coins:
-        if coin.coinCollect(player.rowPosition, player.columnPosition):
-            score += 1
-    board.printBoard(player.rowPosition, player.columnPosition, enemy.enemyRow, enemy.enemyColumn, coin.coinRow, coin.coinColumn)
+    if_die = False 
+    board.printBoard(player.rowPosition, player.columnPosition, enemyPosition)
     selection = input("Make a move: ")
     # TODO
     # Move the player through the board
     # Check if the player has won, if so print a message and break the loop!
 
     if selection == "w":
-        check_move = board.checkMove(player.rowPosition - 1, player.columnPosition)
-        if check_move == True:
+        if board.checkMove(player.rowPosition - 1, player.columnPosition):
             player.moveUp()
+        for e in range(len(enemy)):
+            enemy[e].enemyMove()
     elif selection == "s":
-        check_move = board.checkMove(player.rowPosition + 1, player.columnPosition)
-        if check_move == True:
+        if board.checkMove(player.rowPosition + 1, player.columnPosition):
             player.moveDown()
+        for e in range(len(enemy)):
+            enemy[e].enemyMove()
     elif selection == "a":
-        check_move = board.checkMove(player.rowPosition, player.columnPosition - 1)
-        if check_move == True:
+        if board.checkMove(player.rowPosition, player.columnPosition - 1):
             player.moveLeft()
+        for e in range(len(enemy)):
+            enemy[e].enemyMove()
     elif selection == "d":
-        check_move = board.checkMove(player.rowPosition, player.columnPosition + 1)
-        if check_move == True:
+        if board.checkMove(player.rowPosition, player.columnPosition + 1):
             player.moveRight()
-        
-    check_win = board.checkWin(player.rowPosition, player.columnPosition)
-    if check_win == True:
+        for e in range(len(enemy)):
+            enemy[e].enemyMove()
+    if board.checkWin(player.rowPosition, player.columnPosition):
         print("Congratulations, you win!")
+        print("Your coins collected are: " + str(coinScore) + "/" + str(coinsAmount))
+        score = coinScore
         print("Your score is: " + str(score))
         break
+    
+    for e in range(len(enemy)):
+        if enemy[e].enemyCheck(player.rowPosition, player.columnPosition, enemyLastRow, enemyLastCol):
+            if_die = True
+    if if_die:
+        break
+    if board.coinScore(player.rowPosition, player.columnPosition):
+        coinScore += 1
 
-    while True:
-        enemyMove = random.randint(1, 4)
-        enemyLastCol = enemy.enemyColumn
-        enemyLastRow = enemy.enemyRow
-
-        if enemyMove == 1:
-            enemy_check_move = board.checkMove(enemy.enemyRow - 1, enemy.enemyColumn)
-            if enemy_check_move == True:
-                enemy.moveUp()
-                break
-        elif enemyMove == 2:
-            enemy_check_move = board.checkMove(enemy.enemyRow + 1, enemy.enemyColumn)
-            if enemy_check_move == True:
-                enemy.moveDown()
-                break
-        elif enemyMove == 3:
-            enemy_check_move = board.checkMove(enemy.enemyRow, enemy.enemyColumn - 1)
-            if enemy_check_move == True:
-                enemy.moveLeft()
-                break
-        elif enemyMove == 4:
-            enemy_check_move = board.checkMove(enemy.enemyRow, enemy.enemyColumn + 1)
-            if enemy_check_move == True:
-                enemy.moveRight()
-                break
-            
 
