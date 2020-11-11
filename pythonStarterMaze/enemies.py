@@ -1,4 +1,6 @@
 import random
+import gameboard
+board = gameboard.GameBoard(0)
 
 class Enemy: 
     def __init__(self, enemyInitialRow, enemyInitialCol):
