@@ -7,17 +7,17 @@ class GameBoard:
         self.coinsAmount = coinsAmount
         self.coins = []
         self.board = [
-            ["* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "  ", "* "],
-            ["* ", "  ", "  ", "  ", "  ", "* ", "  ", "  ", "  ", "  ", "* "],
-            ["* ", "  ", "* ", "* ", "  ", "* ", "  ", "* ", "* ", "  ", "* "],
-            ["* ", "  ", "* ", "  ", "  ", "  ", "  ", "  ", "* ", "* ", "* "],
-            ["* ", "  ", "* ", "* ", "* ", "* ", "  ", "  ", "  ", "  ", "* "],
-            ["* ", "  ", "  ", "  ", "  ", "* ", "  ", "* ", "* ", "  ", "* "],
-            ["* ", "* ", "  ", "* ", "  ", "* ", "  ", "* ", "* ", "  ", "* "],
-            ["* ", "  ", "  ", "* ", "  ", "  ", "  ", "* ", "  ", "  ", "* "],
-            ["* ", "  ", "* ", "* ", "  ", "* ", "  ", "* ", "* ", "  ", "* "],
-            ["* ", "  ", "  ", "  ", "  ", "* ", "  ", "  ", "  ", "  ", "* "],
-            ["* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* ", "* "]
+            ["*", "*", "*", "*", "*", "*", "*", "*", "*", " ", "*"],
+            ["*", " ", " ", " ", " ", "*", " ", " ", " ", " ", "*"],
+            ["*", " ", "*", "*", " ", "*", " ", "*", "*", " ", "*"],
+            ["*", " ", "*", " ", " ", " ", " ", " ", "*", "*", "*"],
+            ["*", " ", "*", "*", "*", "*", " ", " ", " ", " ", "*"],
+            ["*", " ", " ", " ", " ", "*", " ", "*", "*", " ", "*"],
+            ["*", "*", " ", "*", " ", "*", " ", "*", "*", " ", "*"],
+            ["*", " ", " ", "*", " ", " ", " ", "*", " ", " ", "*"],
+            ["*", " ", "*", "*", " ", "*", " ", "*", "*", " ", "*"],
+            ["*", " ", " ", " ", " ", "*", " ", " ", " ", " ", "*"],
+            ["*", "*", "*", "*", "*", "*", "*", "*", "*", "*", "*"]
         ]
         # self.board = [
         #     ["* ", "* ", "  ", "* ", "*"],
@@ -34,17 +34,17 @@ class GameBoard:
             for j in range(len(self.board[i])):
                 for k in range(len(self.coins)):
                     if i == self.coins[k].get('row') and j == self.coins[k].get('column'):
-                        self.board[i][j] = "O "
+                        self.board[i][j] = "O"
                 for e in range(len(enemyPosition)):
                     if i == enemyPosition[e].get('row') and j == enemyPosition[e].get('column'):
-                        self.board[i][j] = "E "
+                        self.board[i][j] = "E"
                     elif i == enemyPosition[e].get('lastRow') and j == enemyPosition[e].get('lastColumn'):
                         self.board[i][j] = " "
                 if i == playerRow and j == playerColumn:
-                    print("P ", end="")
+                    print("P", end=" ")
                 else:
-                    print(self.board[i][j], end="")
-            print(" ")
+                    print(self.board[i][j], end=" ")
+            print("")
 
     def coinsPosition(self):
         for i in range(self.coinsAmount):

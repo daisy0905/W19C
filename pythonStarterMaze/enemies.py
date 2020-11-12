@@ -7,6 +7,8 @@ class Enemy:
     def __init__(self, enemyInitialRow, enemyInitialCol):
         self.enemyRow = enemyInitialRow
         self.enemyColumn = enemyInitialCol
+        self.lastRow = enemyInitialRow
+        self.lastColumn = enemyInitialCol
     
     def moveUp(self):
         self.enemyRow -= 1
@@ -20,11 +22,11 @@ class Enemy:
     def moveRight(self):
         self.enemyColumn += 1
 
-    def enemyCheck(self, testRow, testColumn, enemyLastRow, enemyLastCol):
+    def enemyCheck(self, testRow, testColumn):
         if testRow == self.enemyRow and testColumn == self.enemyColumn:
             print("You die, game over!")
             return True
-        elif testRow == enemyLastRow and testColumn == enemyLastCol:
+        elif testRow == self.lastRow and testColumn == self.lastColumn:
             print("You die, game over!")
             return True
         else:
@@ -33,23 +35,22 @@ class Enemy:
     def enemyMove(self):
         while True:
             enemyMove = random.randint(1, 4)
-            self.enemyLastCol = self.enemyColumn
-            self.enemyLastRow = self.enemyRow
+            self.lastColumn = self.enemyColumn
+            self.lastRow = self.enemyRow
 
             if enemyMove == 1:
-                if board.checkMove(self.enemyRow - 1, self.enemyColumn):
+                if board.board[self.enemyRow - 1][self.enemyColumn].find("*") == -1:
                     self.enemyRow -= 1
                     break
             elif enemyMove == 2:
-                if board.checkMove(self.enemyRow + 1, self.enemyColumn):
+                if board.board[self.enemyRow + 1][self.enemyColumn].find("*") == -1:
                     self.enemyRow += 1
                     break
             elif enemyMove == 3:
-                if board.checkMove(self.enemyRow, self.enemyColumn - 1):
+                if board.board[self.enemyRow][self.enemyColumn - 1].find("*") == -1:
                     self.enemyColumn -= 1
                     break
             elif enemyMove == 4:
-                if board.checkMove(self.enemyRow, self.enemyColumn + 1):
+                if board.board[self.enemyRow][self.enemyColumn + 1].find("*") == -1:
                     self.enemyColumn += 1
                     break
-

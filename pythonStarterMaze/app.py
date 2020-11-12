@@ -40,10 +40,11 @@ for i in range(enemiesAmount):
             enemyPosition.append({'row': row, 'column': column, 'lastRow': 8, 'lastColumn': 8})
             break
 
+
 coinScore = 0
 
 while True:
-    if_die = False 
+    if_die = False
     board.printBoard(player.rowPosition, player.columnPosition, enemyPosition)
     selection = input("Make a move: ")
     # TODO
@@ -53,23 +54,16 @@ while True:
     if selection == "w":
         if board.checkMove(player.rowPosition - 1, player.columnPosition):
             player.moveUp()
-        for e in range(len(enemy)):
-            enemy[e].enemyMove()
     elif selection == "s":
         if board.checkMove(player.rowPosition + 1, player.columnPosition):
             player.moveDown()
-        for e in range(len(enemy)):
-            enemy[e].enemyMove()
     elif selection == "a":
         if board.checkMove(player.rowPosition, player.columnPosition - 1):
             player.moveLeft()
-        for e in range(len(enemy)):
-            enemy[e].enemyMove()
     elif selection == "d":
         if board.checkMove(player.rowPosition, player.columnPosition + 1):
             player.moveRight()
-        for e in range(len(enemy)):
-            enemy[e].enemyMove()
+
     if board.checkWin(player.rowPosition, player.columnPosition):
         print("Congratulations, you win!")
         print("Your coins collected are: " + str(coinScore) + "/" + str(coinsAmount))
@@ -78,10 +72,16 @@ while True:
         break
     
     for e in range(len(enemy)):
-        if enemy[e].enemyCheck(player.rowPosition, player.columnPosition, enemyLastRow, enemyLastCol):
+        enemy[e].enemyMove()
+        enemyPosition[e]['row'] = enemy[e].enemyRow
+        enemyPosition[e]['column'] = enemy[e].enemyColumn
+        enemyPosition[e]['lastRow'] = enemy[e].lastRow
+        enemyPosition[e]['lastColumn'] = enemy[e].lastColumn
+        if enemy[e].enemyCheck(player.rowPosition, player.columnPosition):
             if_die = True
-    if if_die:
+    if if_die == True:
         break
+   
     if board.coinScore(player.rowPosition, player.columnPosition):
         coinScore += 1
 
